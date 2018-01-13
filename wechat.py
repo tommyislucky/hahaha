@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from wxpy import *
 from wechat_sender import listen
-bot = Bot()
+bot = Bot(console_qr=True,cache_path=True)
 my = bot.friends()
 '''
 my1 = bot.friends().search('吴震')[0]
@@ -21,4 +21,4 @@ def auto_accept_friends(msg):
         new_friend = bot.accept_friend(msg.card)
         new_friend.send('sigma小助手为您服务')
 
-listen(bot,receivers=my,port=10111)
+listen(bot,receivers=my,port=10123)
