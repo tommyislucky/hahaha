@@ -106,7 +106,7 @@ def search_count(question,choices):
         print (answer + " >>>>>>> " + str(num))
     return counts
 
-
+'''
 def get_answer():
     resp = requests.get('http://htpmsg.jiecaojingxuan.com/msg/current',timeout=4).text
     resp_dict = json.loads(resp)
@@ -124,10 +124,32 @@ def get_answer():
             time.sleep(5)
         else:
             return '等待新题目中...'
+'''
+
+def get_answer():
+    resp = requests.get('http://msg.api.chongdingdahui.com/',timeout=4).text
+    try:
+        resp_dict = json.loads(resp)
+        resp_dict = eval(str(resp))
+        question = resp_dict['data']['event']['desc']
+        question = question[question.find('.') + 1:question.find('?')]
+        if question not in questions:
+            questions.append(question)
+            choices = eval(resp_dict['data']['event']['options'])
+            (defen,answer,df)=get_result(question,choices,weight)
+            sendanswer(defen,answer,df,question)
+            time.sleep(5)
+        else:
+            return '等待新题目中...'
+    except:
+        return '重启中'
+    else:
+        return '等待爬取题目...'
+
 
 def sendanswer(defen,answer,df,question):
     msg=str('参考答案：'+answer+'。'+'\n'+'详细信息：'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers='吴震,吴明,朱依心',port=10125).send(msg)
+    Sender(receivers='吴震,吴明,朱依心',port=10126).send(msg)
 
 
 
