@@ -40,7 +40,20 @@ headers3 = {
     'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3',
     }
 
-    
+headers0 = {
+    'Accept-Language': 'zh-CN,zh;q=0.8',
+    'user-agent': 'Mozilla/5.0 (Linux; U; Android 5.0.2; zh-cn; Redmi Note 3 Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36',
+    'Connection': 'Keep-Alive',
+    'Host': 'msg.api.chongdingdahui.com',
+    'Accept-Encoding': 'gzip',
+    'Cache-Control': 'no-cache',
+    'X-Live-App-Version': '1.0.7',
+    'X-Live-Device-Type': 'android',
+    'X-Live-Session-Token': '1.20592280.1123724.ibp.98cbf8c47190c24f69d0b87dbb72c0fe'
+    }
+
+
+
 def words_zhihu_count(question,choices):
     print ("根据知乎词频:")
     req = requests.get(url='https://www.zhihu.com/search?type=content&q='+str(question),headers=headers3)
@@ -109,8 +122,9 @@ def search_count(question,choices):
 
 def get_answer():
     #resp = requests.get('http://htpmsg.jiecaojingxuan.com/msg/current',timeout=4).text
-    resp = requests.get('http://msg.api.chongdingdahui.com/msg/current',timeout=4).text
-    resp_dict = json.loads(resp)
+    
+    resp = requests.get('http://msg.api.chongdingdahui.com/msg/current',headers=headers0,timeout=5).json()
+    resp_dict = resp
     if resp_dict['msg'] == 'no data':
         return '等待题目中...'
     else:
@@ -122,7 +136,7 @@ def get_answer():
             choices = eval(resp_dict['data']['event']['options'])
             (defen,answer,df)=get_result(question,choices,weight)
             sendanswer(defen,answer,df,question)
-            time.sleep(5)
+            time.sleep(12)
         else:
             return '等待新题目中...'
 
@@ -150,7 +164,7 @@ def get_answer():
 
 def sendanswer(defen,answer,df,question):
     msg=str('参考答案：'+answer+'。'+'\n'+'详细信息：'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers='吴震,吴明,朱依心',port=10128).send(msg)
+    Sender(receivers='吴震,吴明,朱依心',port=10129).send(msg)
 
 
 
@@ -192,7 +206,7 @@ def main():
     while i in [13,17,19,21]:
         print(time.strftime('%H:%M:%S',time.localtime(time.time())))
         print(get_answer())
-        time.sleep(0.5+random.random())
+        time.sleep(1+random.random())
 
 
 if __name__ == '__main__':
