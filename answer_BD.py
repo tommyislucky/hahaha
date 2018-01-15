@@ -106,9 +106,10 @@ def search_count(question,choices):
         print (answer + " >>>>>>> " + str(num))
     return counts
 
-'''
+
 def get_answer():
-    resp = requests.get('http://htpmsg.jiecaojingxuan.com/msg/current',timeout=4).text
+    #resp = requests.get('http://htpmsg.jiecaojingxuan.com/msg/current',timeout=4).text
+    resp = requests.get('http://msg.api.chongdingdahui.com/msg/current',timeout=4).text
     resp_dict = json.loads(resp)
     if resp_dict['msg'] == 'no data':
         return '等待题目中...'
@@ -124,8 +125,8 @@ def get_answer():
             time.sleep(5)
         else:
             return '等待新题目中...'
-'''
 
+'''
 def get_answer():
     resp = requests.get('http://msg.api.chongdingdahui.com/',timeout=4).text
     try:
@@ -145,11 +146,11 @@ def get_answer():
         return '重启中'
     else:
         return '等待爬取题目...'
-
+'''
 
 def sendanswer(defen,answer,df,question):
     msg=str('参考答案：'+answer+'。'+'\n'+'详细信息：'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers='吴震,吴明,朱依心',port=10126).send(msg)
+    Sender(receivers='吴震,吴明,朱依心',port=10128).send(msg)
 
 
 
