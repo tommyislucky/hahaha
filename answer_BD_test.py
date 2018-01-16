@@ -129,7 +129,7 @@ def sendanswer(defen,answer,df,question):
     ff = open('friends.txt')
     aaa=ff.read()
     msg=str('测试！！！参考答案：'+answer+'。'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers=aaa,port=10010).send(msg)
+    Sender(receivers=aaa,port=10011).send(msg)
 
 
 
@@ -173,8 +173,8 @@ def get_result(question,choices,weight):
 
 
 def main():
-    question = '谁是世界上最帅的人?'
-    choices = ['吴彦祖', '王力宏', '郭德纲']
+    question = '香山居士是我国古代哪位文学家的别称?'
+    choices = ['白居易', '李清照', '李贺']
     (defen,answer,df)=get_result(question,choices,weight)
     sendanswer(defen,answer,df,question)
 
