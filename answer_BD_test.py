@@ -126,8 +126,10 @@ def get_answer():
             return '等待新题目中...'
 
 def sendanswer(defen,answer,df,question):
+    ff = open('friends.txt')
+    aaa=ff.read()
     msg=str('参考答案：'+answer+'。'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers='吴震,吴明,朱依心',port=10002).send(msg)
+    Sender(receivers=aaa,port=10003).send(msg)
 
 
 
@@ -171,8 +173,8 @@ def get_result(question,choices,weight):
 
 
 def main():
-    question = '目前亚洲迪士尼乐园中占地面积最大的是?'
-    choices = ['东京迪士尼乐园', '香港迪士尼乐园', '上海迪士尼乐园']
+    question = '谁是世界上最帅的人?'
+    choices = ['吴彦祖', '王力宏', '郭德纲']
     (defen,answer,df)=get_result(question,choices,weight)
     sendanswer(defen,answer,df,question)
 
