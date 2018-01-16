@@ -11,8 +11,8 @@ fff = []
 for friend in my:
     fff.append(str(friend).strip('>').split(': ')[1])
 
-fff=fff.remove('Sigma小助手')
-
+#fff=fff.remove('Sigma小助手')
+del fff[0]
 sss=",".join('%s' %id for id in fff)
 f = open("friends.txt",'a') 
 f.write(sss)
@@ -33,4 +33,4 @@ def auto_accept_friends(msg):
         new_friend = bot.accept_friend(msg.card)
         new_friend.send('sigma小助手为您服务')
 
-listen(bot,receivers=my,port=10007)
+listen(bot,receivers=my,port=10010)
