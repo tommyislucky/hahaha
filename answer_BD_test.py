@@ -129,7 +129,7 @@ def sendanswer(defen,answer,df,question):
     ff = open('friends.txt')
     aaa=ff.read()
     msg=str('测试！！！参考答案：'+answer+'。'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers=aaa,port=10005).send(msg)
+    Sender(receivers=aaa,port=10007).send(msg)
 
 
 

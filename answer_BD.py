@@ -161,11 +161,16 @@ def get_answer():
     else:
         return '等待爬取题目...'
 '''
-
+'''
 def sendanswer(defen,answer,df,question):
     msg=str('参考答案：'+answer+'。'+'\n'+'详细信息：'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
-    Sender(receivers='吴震,吴明,朱依心',port=10002).send(msg)
-
+    Sender(receivers='吴震,吴明,朱依心',port=10003).send(msg)
+'''
+def sendanswer(defen,answer,df,question):
+    ff = open('friends.txt')
+    aaa=ff.read()
+    msg=str('参考答案：'+answer+'。'+'\n'+'详细信息：'+'\n'+df+'\n'+'选项得分分别为：'+str(tuple(defen))+'\n'+'问题：'+question+'\n'+'仅供参考，更多内容请关注SQuant')
+    Sender(receivers=aaa,port=10007).send(msg)
 
 
 def get_result(question,choices,weight):
@@ -206,7 +211,7 @@ def main():
     while i in [13,17,19,21]:
         print(time.strftime('%H:%M:%S',time.localtime(time.time())))
         print(get_answer())
-        time.sleep(1+random.random())
+        time.sleep(0.8+random.random())
 
 
 if __name__ == '__main__':
