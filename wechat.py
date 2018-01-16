@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from wxpy import *
 from wechat_sender import listen
-bot = Bot('bot.pkl',console_qr=True,cache_path=True)
+bot = Bot(console_qr=True,cache_path=True)
 my = bot.friends()
 
 sss=",".join('%s' %id for id in my)
