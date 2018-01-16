@@ -33,4 +33,4 @@ def auto_accept_friends(msg):
         new_friend = bot.accept_friend(msg.card)
         new_friend.send('sigma小助手为您服务')
 
-listen(bot,receivers=my,port=10011)
+listen(bot,receivers=my,port=10012)
